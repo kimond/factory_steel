@@ -1,12 +1,8 @@
-[package]
-name = "factory_steel"
-version = "0.1.0"
-authors = ["Kim Desrosiers <kimdesro@gmail.com>"]
-
-[dependencies]
-
-
 [workspace]
 members = [
+    "factory_steel",
     "factory_steel_derive"
 ]
+
+[replace]
+"factory_steel:0.1.0" = {path = "factory_steel"}

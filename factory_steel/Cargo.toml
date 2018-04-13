@@ -4,3 +4,4 @@ version = "0.1.0"
 authors = ["Kim Desrosiers <kimdesro@gmail.com>"]
 
 [dependencies]
+factory_steel_derive = {path = "../factory_steel_derive"}

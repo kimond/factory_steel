@@ -4,13 +4,8 @@ extern crate syn;
 #[macro_use]
 extern crate quote;
 
-
-trait Factory {
-    fn create();
-}
-
 #[proc_macro_derive(Factory)]
-pub fn factory_derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+pub fn derive_factory(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let s = input.to_string();
     println!("{}",s);
 
@@ -32,17 +27,8 @@ fn impl_factory(ast: &syn::DeriveInput) -> quote::Tokens {
     }
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+#[proc_macro_derive(FieldInfo)]
+pub fn derive_field_info(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
 
-    #[test]
-    fn it_works() {
-//        #[derive(Factory)]
-//        struct MyModel {
-//
-//        }
-//
-//        let m = MyModel::create{};
-    }
+    input
 }

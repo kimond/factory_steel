@@ -6,10 +6,7 @@ extern crate quote;
 
 #[proc_macro_derive(Factory)]
 pub fn derive_factory(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
-    let s = input.to_string();
-    println!("{}",s);
-
-    let ast = syn::parse_str(&s).unwrap();
+    let ast = syn::parse(input).unwrap();
 
     let gen = impl_factory(&ast);
 
@@ -20,8 +17,8 @@ fn impl_factory(ast: &syn::DeriveInput) -> quote::Tokens {
     let name = &ast.ident;
     quote! {
         impl Factory for #name {
-            fn create() {
-                println!("hello");
+            fn create() -> Self {
+                Self{}
             }
         }
     }
@@ -29,6 +26,19 @@ fn impl_factory(ast: &syn::DeriveInput) -> quote::Tokens {
 
 #[proc_macro_derive(FieldInfo)]
 pub fn derive_field_info(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    let input = syn::parse(input).unwrap();
+    let gen = impl_field_info(&input);
 
-    input
+    gen.into()
+}
+
+fn impl_field_info(item: &syn::DeriveInput) -> quote::Tokens {
+    let name = &item.ident;
+    quote! {
+        impl #name {
+            fn fields_info() {
+                println!("field")
+            }
+        }
+    }
 }

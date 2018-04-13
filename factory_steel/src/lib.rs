@@ -2,21 +2,8 @@
 extern crate factory_steel_derive;
 pub use factory_steel_derive::*;
 
-macro_rules! fields_information {
-    (struct $name:ident { $($fname:ident : $ftype:ty),* }) => {
-        struct $name {
-            $($fname : $ftype),*
-        }
-
-        println!("{}", $ftype)
-        impl $name {
-            fn field_names() -> &'static [&'static str] {
-                static NAMES: &'static [&'static str] = &[$(stringify!($fname)),*];
-                NAMES
-            }
-        }
-    }
-}
+#[macro_use]
+mod macros;
 
 pub trait Factory {
     fn create() -> Self;

@@ -1,14 +1,11 @@
-#[macro_use]
-extern crate factory_steel;
-
 use factory_steel::Factory;
 
 #[test]
-fn it_works() {
+fn derive_factory_with_simple_struct() {
     #[derive(Factory)]
     struct MyModel {
 
     }
 
-    let m = MyModel::create();
+    MyModel::create();
 }

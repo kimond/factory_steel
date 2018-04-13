@@ -14,3 +14,5 @@ factory_steel = {path = "../factory_steel"}
 [lib]
 proc-macro = true
 
+[[test]]
+name = "tests"

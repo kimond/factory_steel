@@ -6,38 +6,32 @@ extern crate quote;
 
 #[proc_macro_derive(Factory)]
 pub fn derive_factory(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
-    let ast = syn::parse(input).unwrap();
+    let input = syn::parse(input).unwrap();
 
-    let gen = impl_factory(&ast);
+    let gen = impl_factory(&input);
 
+    println!("{}", gen.to_string());
     gen.into()
 }
 
-fn impl_factory(ast: &syn::DeriveInput) -> quote::Tokens {
-    let name = &ast.ident;
+fn impl_factory(item: &syn::DeriveInput) -> quote::Tokens {
+    let fields: syn::Fields;
+    let name = &item.ident;
+    match &item.data {
+        &syn::Data::Struct(ref data) => {
+            fields = data.fields.clone();
+        }
+        _ => {
+            panic!("This macro can be used with Struct only!")
+        }
+    }
+    let field_names = fields.iter().map(|f| f.ident.unwrap());
     quote! {
         impl Factory for #name {
             fn create() -> Self {
-                Self{}
-            }
-        }
-    }
-}
-
-#[proc_macro_derive(FieldInfo)]
-pub fn derive_field_info(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
-    let input = syn::parse(input).unwrap();
-    let gen = impl_field_info(&input);
-
-    gen.into()
-}
-
-fn impl_field_info(item: &syn::DeriveInput) -> quote::Tokens {
-    let name = &item.ident;
-    quote! {
-        impl #name {
-            fn fields_info() {
-                println!("field")
+                Self{
+                    #(#field_names: "".to_string()),*
+                }
             }
         }
     }

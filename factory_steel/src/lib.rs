@@ -14,17 +14,5 @@ mod tests {
     use super::*;
 
     #[test]
-    fn struct_faking() {
-        struct Person {
-            name: String
-        }
-
-        impl Factory for Person {
-            fn create() -> Self {
-                return Person { name: "hola".to_string() };
-            }
-        }
-
-        Person::create();
-    }
+    fn struct_faking() {}
 }

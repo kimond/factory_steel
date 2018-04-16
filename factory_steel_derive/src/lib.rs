@@ -1,8 +1,14 @@
 extern crate proc_macro;
 extern crate proc_macro2;
+#[macro_use]
 extern crate syn;
 #[macro_use]
 extern crate quote;
+
+mod field;
+mod model;
+
+use model::Model;
 
 #[proc_macro_derive(Factory)]
 pub fn derive_factory(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
@@ -10,27 +16,22 @@ pub fn derive_factory(input: proc_macro::TokenStream) -> proc_macro::TokenStream
 
     let gen = impl_factory(&input);
 
-    println!("{}", gen.to_string());
     gen.into()
 }
 
 fn impl_factory(item: &syn::DeriveInput) -> quote::Tokens {
-    let fields: syn::Fields;
-    let name = &item.ident;
-    match &item.data {
-        &syn::Data::Struct(ref data) => {
-            fields = data.fields.clone();
-        }
-        _ => {
-            panic!("This macro can be used with Struct only!")
-        }
-    }
-    let field_names = fields.iter().map(|f| f.ident.unwrap());
+    let model = Model::from_item(&item);
+    let struct_name = item.ident;
+    let fields = model.fields.iter().map(|f| {
+        let name = f.name;
+        let ty = &f.ty;
+        quote!(#name: #ty::default())
+    });
     quote! {
-        impl Factory for #name {
+        impl Factory for #struct_name {
             fn create() -> Self {
                 Self{
-                    #(#field_names: "".to_string()),*
+                    #(#fields),*
                 }
             }
         }

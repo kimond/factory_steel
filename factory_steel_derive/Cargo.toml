@@ -4,9 +4,9 @@ version = "0.1.0"
 authors = ["Kim Desrosiers <kimdesro@gmail.com>"]
 
 [dependencies]
-syn = "0.12.14"
-quote = "0.4.2"
-proc-macro2 = "0.2"
+syn = "0.13"
+quote = "0.5"
+proc-macro2 = "0.3"
 
 [dev-dependencies]
 factory_steel = {path = "../factory_steel"}

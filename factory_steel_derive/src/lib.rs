@@ -10,9 +10,9 @@ extern crate quote;
 mod field;
 mod model;
 mod meta;
+mod lit;
 
 use model::Model;
-use syn::Lit::{Str, Int};
 
 #[proc_macro_derive(Factory, attributes(facto))]
 pub fn derive_factory(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
@@ -29,12 +29,8 @@ fn impl_factory(item: &syn::DeriveInput) -> quote::Tokens {
     let fields = model.fields.iter().map(|f| {
         let name = f.name;
         let ty = &f.ty;
-        if let Some(ref value) = f.attrs.default {
-            match *value {
-                Str(ref s) => quote!(#name: #value.to_string()),
-                Int(ref s) => quote!(#name: #value),
-                _ => quote!(#name: #ty::default())
-            }
+        if f.attrs.default.is_some() {
+            f.get_default()
         } else {
             quote!(#name: #ty::default())
         }

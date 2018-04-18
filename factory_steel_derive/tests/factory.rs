@@ -21,11 +21,14 @@ fn derive_factory_with_field_default_option() {
     struct MyModel {
         #[facto(default="John")]
         name: String,
-        #[facto(default=23)]
+        #[facto(default="23")]
         age: u8,
+        #[facto(default="44")]
+        distance: u32,
     }
 
     let m = MyModel::create();
     assert_eq!(m.name, "John");
-    assert_eq!(m.age, u8::default());
+    assert_eq!(m.age, 23);
+    assert_eq!(m.distance, 44);
 }

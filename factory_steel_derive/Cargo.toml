@@ -2,6 +2,7 @@
 name = "factory_steel_derive"
 version = "0.1.0"
 authors = ["Kim Desrosiers <kimdesro@gmail.com>"]
+license = "MIT"
 
 [dependencies]
 syn = "0.13"
@@ -9,7 +10,7 @@ quote = "0.5"
 proc-macro2 = "0.3"
 
 [dev-dependencies]
-factory_steel = {path = "../factory_steel"}
+factory_steel = {version = "0.1.0", path = "../factory_steel"}
 
 [lib]
 proc-macro = true

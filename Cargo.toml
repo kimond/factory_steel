@@ -3,6 +3,3 @@ members = [
     "factory_steel",
     "factory_steel_derive"
 ]
-
-[replace]
-"factory_steel:0.1.0" = {path = "factory_steel"}

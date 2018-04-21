@@ -19,7 +19,7 @@ fn derive_factory_with_only_default() {
 fn derive_factory_with_field_default_option() {
     #[derive(Factory)]
     struct MyModel {
-        #[facto(default = "John")]
+        #[facto(default = "John Doe")]
         name: String,
         #[facto(default = "23")]
         age: u8,
@@ -34,7 +34,7 @@ fn derive_factory_with_field_default_option() {
     }
 
     let m = MyModel::create();
-    assert_eq!(m.name, "John");
+    assert_eq!(m.name, "John Doe");
     assert_eq!(m.age, 23);
     assert_eq!(m.distance, 44);
     assert_eq!(m.axis, 33);

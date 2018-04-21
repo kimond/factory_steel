@@ -2,6 +2,7 @@
 name = "factory_steel"
 version = "0.1.0"
 authors = ["Kim Desrosiers <kimdesro@gmail.com>"]
+license = "MIT"
 
 [dependencies]
-factory_steel_derive = {path = "../factory_steel_derive"}
+factory_steel_derive = {version="0.1.0", path="../factory_steel_derive"}

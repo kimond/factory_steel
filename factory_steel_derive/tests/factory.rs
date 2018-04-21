@@ -42,3 +42,22 @@ fn derive_factory_with_field_default_option() {
     assert_eq!(m.is_ok, true);
 }
 
+#[test]
+fn derive_factory_with_sub_factory() {
+    #[derive(Factory)]
+    struct SubModel {
+        name: String
+    }
+
+    #[derive(Factory)]
+    struct MyModel {
+        name: String,
+        #[facto(sub_factory)]
+        sub_model: SubModel
+    }
+
+    let m = MyModel::create();
+    assert_eq!(m.name, String::default());
+    assert_eq!(m.sub_model.name, String::default());
+}
+

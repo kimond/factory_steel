@@ -31,6 +31,8 @@ fn impl_factory(item: &syn::DeriveInput) -> quote::Tokens {
         let ty = &f.ty;
         if f.attrs.default.is_some() {
             f.get_default()
+        } else if f.attrs.is_sub_factory {
+            quote!(#name: #ty::create())
         } else {
             quote!(#name: #ty::default())
         }

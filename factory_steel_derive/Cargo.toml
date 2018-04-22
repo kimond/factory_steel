@@ -2,6 +2,8 @@
 name = "factory_steel_derive"
 version = "0.1.0"
 authors = ["Kim Desrosiers <kimdesro@gmail.com>"]
+description = "You should not use this crate directly, it is internal to Factory_steel."
+repository = "https://github.com/kimond/factory_steel/tree/master/factory_steel_derive"
 license = "MIT"
 
 [dependencies]

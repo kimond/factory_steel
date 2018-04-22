@@ -2,7 +2,16 @@
 name = "factory_steel"
 version = "0.1.0"
 authors = ["Kim Desrosiers <kimdesro@gmail.com>"]
+description = "A Rust fixture replacement greatly inspired by factory_bot and factory_boy."
+repository = "https://github.com/kimond/factory_steel"
+keywords = ["factory", "fixture"]
+categories = ["Development tools"]
 license = "MIT"
+readme = "README.md"
 
 [dependencies]
 factory_steel_derive = {version="0.1.0", path="../factory_steel_derive"}
+
+
+[badges]
+travis-ci = { repository = "kimond/factory_steel" }

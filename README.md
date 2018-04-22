@@ -32,3 +32,8 @@ fn main() {
     println!("{}", post.title);
 }
 ```
+
+## Contributing
+Contributions are welcome! This crate is work in progress, and a lot of work remains to be done.
+Have a look at the [issues](https://github.com/kimond/factory_steel/issues), and 
+open a pull request if you'd like to add some functionality.

@@ -61,3 +61,14 @@ fn derive_factory_with_sub_factory() {
     assert_eq!(m.sub_model.name, String::default());
 }
 
+#[test]
+fn derive_factory_using_fake_rs() {
+    #[derive(Factory)]
+    struct MyModel {
+        #[facto(fake="Lorem.word")]
+        word: String,
+    }
+
+    let m = MyModel::create();
+    assert_ne!(m.word, "");
+}

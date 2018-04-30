@@ -6,13 +6,17 @@ const ATTR_NAME: &'static str = "facto";
 
 pub struct Field {
     pub default: Option<syn::Lit>,
-    pub is_sub_factory: bool
+    pub is_sub_factory: bool,
+    pub is_fake: bool,
+    pub fake_value: Option<syn::Lit>,
 }
 
 impl Field {
     pub fn from_ast(attrs: &[syn::Attribute]) -> Self {
         let mut is_sub_factory = false;
         let mut default: Option<syn::Lit> = None;
+        let mut is_fake = false;
+        let mut fake_value = None;
         for meta_items in attrs.iter().filter_map(get_facto_meta_items) {
             for meta_item in meta_items {
                 match meta_item {
@@ -21,6 +25,10 @@ impl Field {
                     }
                     Meta(Word(word)) if word == "sub_factory" => {
                         is_sub_factory = true;
+                    }
+                    Meta(NameValue(ref m)) if m.ident == "fake" => {
+                        is_fake = true;
+                        fake_value = Some(m.lit.clone());
                     }
                     Meta(ref meta_item) => {
                         panic!("Unknown factory_steel attribute {}", meta_item.name());
@@ -33,7 +41,9 @@ impl Field {
         }
         Field {
             default,
-            is_sub_factory
+            is_sub_factory,
+            is_fake,
+            fake_value,
         }
     }
 }

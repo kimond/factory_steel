@@ -7,7 +7,7 @@ repository = "https://github.com/kimond/factory_steel/tree/master/factory_steel_
 license = "MIT"
 
 [dependencies]
-syn = "0.13"
+syn = "0.13.1"
 quote = "0.5"
 proc-macro2 = "0.3"
 

@@ -31,13 +31,23 @@ fn impl_factory(item: &syn::DeriveInput) -> quote::Tokens {
         let ty = &f.ty;
         if f.attrs.default.is_some() {
             f.get_default()
+        } else if f.attrs.is_fake {
+            let fake_value = f.attrs.fake_value.clone().unwrap();
+            quote!(#name: fake!(#fake_value))
         } else if f.attrs.is_sub_factory {
             quote!(#name: #ty::create())
         } else {
             quote!(#name: #ty::default())
         }
     });
+    let has_fake_fields = model.fields.iter().any(|f| f.attrs.is_fake);
+    let fake_import = match has_fake_fields {
+        true => quote!(use factory_steel::fake::*;),
+        false => quote!()
+    };
     quote! {
+        #fake_import
+
         impl Factory for #struct_name {
             fn create() -> Self {
                 Self{

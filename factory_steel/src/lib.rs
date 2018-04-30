@@ -4,7 +4,14 @@
 
 #[allow(unused_imports)]
 #[macro_use]
+extern crate fake as fake_rs;
+#[allow(unused_imports)]
+#[macro_use]
 extern crate factory_steel_derive;
+
+pub mod fake {
+    pub use fake_rs::*;
+}
 
 #[doc(hidden)]
 pub use factory_steel_derive::*;

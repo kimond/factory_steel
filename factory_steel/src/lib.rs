@@ -2,15 +2,9 @@
 //! Factory_steel is a fixture replacement greatly inspired by [factory_bot](https://github.com/thoughtbot/factory_bot)
 //! and [factory_boy](https://github.com/FactoryBoy/factory_boy). Currently it is an experimental project.
 
-#[allow(unused_imports)]
-#[macro_use]
-extern crate fake as fake_rs;
-#[allow(unused_imports)]
-#[macro_use]
-extern crate factory_steel_derive;
-
+use ::fake as fake_rs;
 pub mod fake {
-    pub use fake_rs::*;
+    pub use crate::fake_rs::*;
 }
 
 #[doc(hidden)]

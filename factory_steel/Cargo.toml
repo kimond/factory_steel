@@ -9,8 +9,10 @@ categories = ["development-tools"]
 license = "MIT"
 readme = "README.md"
 
+edition = '2018'
+
 [dependencies]
-fake = "1.2.1"
+fake = "1.2.2"
 factory_steel_derive = {version="0.1.0", path="../factory_steel_derive"}
 
 

@@ -6,10 +6,12 @@ description = "You should not use this crate directly, it is internal to Factory
 repository = "https://github.com/kimond/factory_steel/tree/master/factory_steel_derive"
 license = "MIT"
 
+edition = '2018'
+
 [dependencies]
-syn = "0.13.1"
-quote = "0.5"
-proc-macro2 = "0.3"
+syn = "0.15"
+quote = "0.6"
+proc-macro2 = "0.4"
 
 [dev-dependencies]
 factory_steel = {version = "0.1.0", path = "../factory_steel"}

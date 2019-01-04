@@ -1,5 +1,5 @@
 use syn;
-use field::Field;
+use crate::field::Field;
 
 pub struct Model {
     pub name: syn::Ident,
@@ -10,7 +10,7 @@ impl Model {
     pub fn from_item(item: &syn::DeriveInput) -> Self {
         let fields = fields_from_item_data(&item.data).unwrap();
         Self {
-            name: item.ident,
+            name: item.ident.to_owned(),
             fields,
         }
     }

@@ -23,7 +23,7 @@ impl Field {
                     Meta(NameValue(ref m)) if m.ident == "default" => {
                         default = Some(m.lit.clone());
                     }
-                    Meta(Word(word)) if word == "sub_factory" => {
+                    Meta(Word(ref word)) if word == "sub_factory" => {
                         is_sub_factory = true;
                     }
                     Meta(NameValue(ref m)) if m.ident == "fake" => {

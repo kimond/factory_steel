@@ -1,9 +1,8 @@
 use syn;
-use quote;
+use quote::quote;
 use quote::ToTokens;
-use meta;
-use lit;
-use quote::Tokens;
+use crate::meta;
+use crate::lit;
 
 pub struct Field {
     pub ty: syn::Type,
@@ -23,8 +22,8 @@ static FLOAT_TYPES: [&'static str; 2] = [
 
 impl Field {
     pub fn from_struct_field(field: &syn::Field) -> Self {
-        let name = match field.ident {
-            Some(f) => f,
+        let name = match &field.ident {
+            Some(f) => f.to_owned(),
             None => panic!("Unnamed fields not supported"),
         };
         let attrs = meta::Field::from_ast(&field.attrs);
@@ -37,7 +36,7 @@ impl Field {
         }
     }
 
-    pub fn get_default(&self) -> Tokens {
+    pub fn get_default(&self) -> proc_macro2::TokenStream {
         let name = &self.name;
         let ty = &self.ty;
         let default = &self.attrs.default.clone().unwrap();
@@ -63,7 +62,7 @@ impl Field {
 fn type_as_str(ty: syn::Type) -> String {
     let field_type = match ty {
         syn::Type::Path(syn::TypePath { ref path, .. }) => {
-            let mut tokens = quote::Tokens::new();
+            let mut tokens = proc_macro2::TokenStream::new();
             path.to_tokens(&mut tokens);
             tokens.to_string().replace(' ', "")
         }
